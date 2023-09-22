@@ -4,15 +4,33 @@ from aiogram.types import (
 )
 
 
-
 async def start_keyboard():
     markup = InlineKeyboardMarkup()
     questionnaire_button = InlineKeyboardButton(
-        "Start_questionnaire",
+        "Start Questionnaire",
         callback_data="start_questionnaire"
     )
+    form_start_button = InlineKeyboardButton(
+        "Registration",
+        callback_data="fsm_start_form"
+    )
+    random_profiles_button = InlineKeyboardButton(
+        "View User Forms",
+        callback_data="random_profile"
+    )
+    profile_button = InlineKeyboardButton(
+        "My Profile",
+        callback_data="my_profile"
+    )
+
     markup.add(
         questionnaire_button
+    ).add(
+        form_start_button
+    ).add(
+        random_profiles_button
+    ).add(
+        profile_button
     )
     return markup
 
@@ -20,7 +38,7 @@ async def start_keyboard():
 async def question_first_keyboard():
     markup = InlineKeyboardMarkup()
     male_button = InlineKeyboardButton(
-        "male",
+        "Male",
         callback_data="male_answer"
     )
     female_button = InlineKeyboardButton(
@@ -32,5 +50,19 @@ async def question_first_keyboard():
     ).add(
         female_button
     )
-
     return markup
+
+
+async def my_profile_keyboard():
+    markup = InlineKeyboardMarkup()
+    profile_button = InlineKeyboardButton(
+        "My Profile",
+        callback_data="my_profile"
+    )
+
+    markup.add(
+        profile_button
+    )
+    return markup
+
+
