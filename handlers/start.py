@@ -1,12 +1,12 @@
-from aiogram import types,Dispatcher
-from config import bot,ADMIN_ID,BOT_PIC,ANIMATION_PIC
+from aiogram import types, Dispatcher
+
+from config import bot, ADMIN_ID, BOT_PIC
 from const import START_TEXT
 from database.sql_commands import Database
 from keybords.inline_buttons import start_keyboard
 
 
-async def start_button(message:types.Message):
-
+async def start_button(message: types.Message):
     Database().sql_insert_user_command(
         telegram_id=message.from_user.id,
         username=message.from_user.username,
@@ -15,17 +15,17 @@ async def start_button(message:types.Message):
     )
 
     print(message)
-    with open(BOT_PIC,'rb') as photo:
-         await bot.send_photo(
-             chat_id=message.chat.id,
-             photo=photo,
-             caption=START_TEXT.format(
-            username=message.from_user.username
-        ),
-             parse_mode=types.ParseMode.MARKDOWN,
-             reply_markup=await start_keyboard()
+    with open(BOT_PIC, 'rb') as photo:
+        await bot.send_photo(
+            chat_id=message.chat.id,
+            photo=photo,
+            caption=START_TEXT.format(
+                username=message.from_user.username
+            ),
+            parse_mode=types.ParseMode.MARKDOWN,
+            reply_markup=await start_keyboard()
 
-         )
+        )
     # with open(ANIMATION_PIC,'rb') as animation:
     #     await bot.send_animation(
     #         chat_id=message.chat.id,
@@ -36,7 +36,8 @@ async def start_button(message:types.Message):
     #         parse_mode=types.ParseMode.MARKDOWN,
     #         reply_markup=await start_keyboard()
 
-        # )
+    # )
+
 
 async def secret_word(message: types.Message):
     if message.chat.id == ADMIN_ID:
@@ -59,9 +60,7 @@ async def secret_word(message: types.Message):
         )
 
 
-
-def register_start_hendlers(dp:Dispatcher):
-    dp.register_message_handler(start_button,commands=["start"])
+def register_start_hendlers(dp: Dispatcher):
+    dp.register_message_handler(start_button, commands=["start"])
     dp.register_message_handler(secret_word,
                                 lambda word: "dorei" in word.text)
-

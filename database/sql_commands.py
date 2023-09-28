@@ -1,4 +1,5 @@
 import sqlite3
+
 from database import sql_quaries
 
 
@@ -73,3 +74,39 @@ class Database:
             (telegram_id,)
         ).fetchall()
 
+    def sql_select_all_user_form_command(self):
+        self.cursor.row_factory = lambda cursor, row: {
+            "id": row[0],
+            "telegram_id": row[1],
+            "nickname": row[2],
+            "bio": row[3],
+            "age": row[4],
+            "occupation": row[5],
+            "married": row[6],
+            "photo": row[7],
+        }
+        return self.cursor.execute(
+            sql_quaries.SELECT_ALL_USER_FORMS_QUERY,
+        ).fetchall()
+
+    def sql_insert_like_command(self, liker, liked):
+        self.cursor.execute(
+            sql_quaries.INSERT_LIKE_QUERY,
+            (None, liker, liked)
+        )
+        self.connection.commit()
+
+    def sql_update_user_form_command(self, telegram_id, nickname, bio,
+                                     age, occupation, married, photo):
+        self.cursor.execute(
+            sql_quaries.UPDATE_USER_FORM_QUERY,
+            (nickname, bio, age, occupation, married, photo, telegram_id,)
+        )
+        self.connection.commit()
+
+    def sql_delete_user_form_command(self, telegram_id):
+        self.cursor.execute(
+            sql_quaries.DELETE_USER_FORM_QUERY,
+            (telegram_id,)
+        )
+        self.connection.commit()

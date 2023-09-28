@@ -66,3 +66,54 @@ async def my_profile_keyboard():
     return markup
 
 
+
+async def like_dislike_keyboard(telegram_id):
+    markup = InlineKeyboardMarkup()
+    like_button = InlineKeyboardButton(
+        "like",
+        callback_data=f"_like_{telegram_id}"
+    )
+
+    dislike_button = InlineKeyboardButton(
+        "dislike",
+        callback_data="random_profile"
+    )
+
+    markup.add(
+        like_button
+    ).add(
+        dislike_button
+    )
+    return markup
+
+
+async def edit_delete_keyboard():
+    markup = InlineKeyboardMarkup()
+    update_button = InlineKeyboardButton(
+        "Edit",
+        callback_data=f"edit_profile"
+    )
+
+    delete_button = InlineKeyboardButton(
+        "delete",
+        callback_data="delete_profile"
+    )
+
+    markup.add(
+        update_button
+    ).add(
+        delete_button
+    )
+    return markup
+
+
+async def register_keyboard():
+    markup = InlineKeyboardMarkup()
+    form_start_button = InlineKeyboardButton(
+        "Registration",
+        callback_data="fsm_start_form"
+    )
+    markup.add(
+        form_start_button
+    )
+    return markup

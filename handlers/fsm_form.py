@@ -146,6 +146,16 @@ async def load_photo(message: types.Message,
 
 
 
+async def delete_detect_user_form_call(call:types.CallbackQuery):
+    Database().sql_delete_user_form_command(
+        telegram_id=call.from_user.id
+    )
+    await bot.send_message(
+        chat_id=call.from_user.id,
+        text="Анкета удалена"
+    )
+
+
 def register_fsm_form_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(fsm_start,
                                        lambda call: call.data == "fsm_start_form")
@@ -161,3 +171,8 @@ def register_fsm_form_handlers(dp: Dispatcher):
                                 content_types=['text'])
     dp.register_message_handler(load_photo, state=FormStates.photo,
                                 content_types=types.ContentTypes.PHOTO)
+    dp.register_callback_query_handler(update_start,
+                                lambda call: call.data == "edit_profile")
+    dp.register_callback_query_handler(delete_detect_user_form_call,
+                                       lambda call: call.data == "delete_profile")
+

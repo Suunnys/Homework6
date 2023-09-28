@@ -1,8 +1,6 @@
-import datetime
-
-from config import bot, GROUP_ID
 from aiogram import types, Dispatcher
 
+from config import bot, GROUP_ID
 from database.sql_commands import Database
 
 
