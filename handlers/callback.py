@@ -11,6 +11,7 @@ from keybords.inline_buttons import (
     question_first_keyboard,
     like_dislike_keyboard,
     edit_delete_keyboard, register_keyboard)
+from scraper.news_scraper import Newscraper
 
 
 async def start_quesrionnaire_call(call: types.CallbackQuery):
@@ -112,6 +113,23 @@ async def like_detect_call(call: types.CallbackQuery):
     return
 
 
+async def latest_news_call(call:types.CallbackQuery):
+    scraper = Newscraper()
+    news = scraper.parse_data()
+
+    for link in news:
+        await bot.send_message(
+            chat_id = call.from_user.id,
+            text=scraper.PLUS_URL+link
+        )
+
+
+
+
+
+
+
+
 def register_callback_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(start_quesrionnaire_call,
                                        lambda call: call.data == "start_questionnaire")
@@ -125,3 +143,5 @@ def register_callback_handlers(dp: Dispatcher):
                                        lambda call: call.data == "random_profile")
     dp.register_callback_query_handler(like_detect_call,
                                        lambda call: "_like_" in call.data)
+    dp.register_callback_query_handler(latest_news_call,
+                                       lambda call:call.data == "Latest news")
