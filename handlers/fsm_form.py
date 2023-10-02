@@ -2,7 +2,7 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
-from config import bot, DESTINATION_DIR
+from config import bot,DESTINATION_DIR
 from database.sql_commands import Database
 from keybords.inline_buttons import my_profile_keyboard
 
