@@ -17,12 +17,10 @@ class Database:
         self.connection.execute(sql_quaries.CREATE_USER_FORM_TABLE_QUERY)
         self.connection.execute(sql_quaries.CREATE_LIKE_USER_FORM_TABLE_QUERY)
 
-    def sql_insert_user_command(self, telegram_id, username, first_name,
-                                last_name):
+    def sql_insert_user_command(self, telegram_id, username, first_name,last_name):
         self.cursor.execute(
             sql_quaries.INSERT_USER_QUERY,
-            (None, telegram_id, username, first_name, last_name,)
-        )
+            (None, telegram_id, username, first_name, last_name))
         self.connection.commit()
 
     def sql_insert_ban_user_command(self, telegram_id):
