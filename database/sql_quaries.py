@@ -51,7 +51,7 @@ CREATE_LIKE_USER_FORM_TABLE_QUERY = """
 
 
 
-INSERT_USER_QUERY = """INSERT OR IGNORE INTO telegram_users VALUES (?,?,?,?,?,)"""
+INSERT_USER_QUERY = """INSERT OR IGNORE INTO telegram_users VALUES (?,?,?,?,?)"""
 
 INSERT_BAN_USER_QUERY = """INSERT OR IGNORE INTO ban_users VALUES (?,?,?)"""
 
